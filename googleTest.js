@@ -6,10 +6,10 @@ function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
     center: {lng: -21.926735, lat : 64.123924},
     scrollwheel: true,
-    zoom: 15,
+    zoom: 13,
     });
 
-    var script = document.createElement('script');
+
     
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds()
@@ -21,16 +21,42 @@ function initMap() {
         map.data.loadGeoJson(str);
     });
     
+    while(overlays[0]){
+        overlays.pop().setMap(null);
+       }
+
     google.maps.event.addListener(map, 'click', function(event) {
-        placeMarker(event.latLng);
-     });
+        
+        //console.log( latitude + ', ' + longitude );
+        var r = confirm("Do you want to mark this loation!");  
+        if (r == true) {
+            placeMarker(event.latLng);
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+            var url = 'http://157.157.9.120/litter?lat=' + latitude + '&lon=' + longitude;
+            postForm(url)
+            .then(data => console.log(data))
+        } 
+        
+        });
      
-     function placeMarker(location) {
+    function placeMarker(location) {
          var marker = new google.maps.Marker({
              position: location, 
              map: map
          });
      }
+
+
+    function postForm(url) {
+        return fetch(url, {
+            method: 'PUT', 
+    })
+        .then(response => response.json())
+        .catch(error => console.error(error))
+    }
+
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
 }
 
 
