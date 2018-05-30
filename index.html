@@ -18,14 +18,45 @@
         margin: 0;
         padding: 0;
       }
+
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        right: 25%;
+        z-index: 5;
+        background-color: #fff;
+        opacity: 0.5;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        border-radius: 25px;
+      }
+      #floating-panel:hover { 
+        background-color: rgb(60, 255, 0);
+        opacity: 0.8;
+      }
     </style>
 </head>
 <body>
     <div id="map"></div>
     <script src="googleTest.js"></script>
+    <form id="floating-panel" action = "http://localhost:5000/uploader" method = "POST" 
+    enctype = "multipart/form-data">
+        <label for="file">Upload your path</label>
+        <input type="file" id="file" name="file">
+        <input type="submit" value="submit">
+    </form>
+    
+    
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
 
     <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxiiw6MNS9z19nXXg_zgRY8vK_lb2nhPk&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDb1xKbDELNgbOSqjrgLajJEstmqQgkA7E&callback=initMap">
 </script>
 
 
