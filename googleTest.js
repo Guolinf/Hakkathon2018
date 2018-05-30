@@ -5,9 +5,9 @@ function initMap() {
 // The location of Uluru
 
     var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lng: -21.926735, lat : 64.123924},
+    center: {lng: -21.883949, lat : 64.133556},
     scrollwheel: true,
-    zoom: 15,
+    zoom: 14,
     styles: [
           {
             featureType: 'poi',
@@ -159,7 +159,7 @@ function initMap() {
                 markers.push(marker);
             var url = 'http://157.157.9.120/litter?lat=' + latitude + '&lon=' + longitude;
             postForm(url)
-            .then(data => console.log(data))
+            .then(data => reloadEverything())
         } 
         
         });
@@ -189,6 +189,13 @@ function initMap() {
         console.log("Remove All Markers");
     }
 
-  
+    function reloadEverything() {
+        map.data.forEach(function(feature) {
+            map.data.remove(feature);
+        });
+
+        var str = 'http://157.157.9.120/bins'
+        var features = map.data.loadGeoJson(str);
+    }
 
 }
