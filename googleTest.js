@@ -8,18 +8,44 @@ function initMap() {
     center: {lng: -21.926735, lat : 64.123924},
     scrollwheel: true,
     zoom: 15,
+    styles: [
+          {
+            featureType: 'poi',
+            elementType: 'geometry',
+            stylers: [{color: '#bcc9cc'}]
+          },
+          {
+            featureType: 'poi',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#bcc9cc'}]
+          },
+          {
+            featureType: 'poi.park',
+            elementType: 'geometry.fill',
+            stylers: [{color: '#bcc9cc'}]
+          },
+          {
+            featureType: 'poi.park',
+            elementType: 'labels.text.fill',
+            stylers: [{color: '#bcc9cc'}]
+          }
+    ]
     });
 
     var script = document.createElement('script');
 
     map.data.setStyle(function(feature) {
       var color = 'gray';
+      var opacity = 0.5;
       if (feature.getProperty('fill')) {
         color = feature.getProperty('fill');
       }
+      if (feature.getProperty('opacity')) {
+        opacity = feature.getProperty('opacity');
+      }
       return /** @type {!google.maps.Data.StyleOptions} */({
         fillColor: color,
-        fillOpacity: 0.2,
+        fillOpacity: opacity,
         strokeWeight: 0,
         clickable: false
       });
@@ -140,7 +166,7 @@ function initMap() {
      
     function placeMarker(location) {
          var marker = new google.maps.Marker({
-             position: location, 
+             position: location,
              map: map
          });
      }
@@ -163,9 +189,6 @@ function initMap() {
         console.log("Remove All Markers");
     }
 
-    function removeOverlay() {
-        features.setMap(null);
-      }
   
 
 }
